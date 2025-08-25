@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "login")
 public class Login {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -75,4 +76,18 @@ public class Login {
     public int hashCode() {
         return Objects.hash(username, hashedPassword);
     }
+
+    public Login() {
+    }
+
+    public Login(String username, String rawPassword) {
+        this.username = username;
+        setRawPassword(rawPassword);
+    }
+
+    public void setRawPassword(String rawPassword) {
+        // XXX - This should *NEVER* be done in a real project
+        this.hashedPassword = Integer.toString(rawPassword.hashCode());
+    }
+
 }
